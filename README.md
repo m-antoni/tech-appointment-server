@@ -1,19 +1,19 @@
 ## Tech Appointment App
 
-> using MERN with GraphQL
+using MERN with GraphQL
 
 <hr/>
 
-### FrontEnd
+### FRONTEND
 
-    - ReactJS
-    - Apollo Client
-    - GraphQL
+- ReactJS
+- Apollo Client
+- GraphQL
 
-### Backend
+### BACKEND
 
-    - NodeJS
-    - ExpressJS
-    - Express-GraphQL
-    - GraphQL
-    - Mongoose
+- NodeJS
+- ExpressJS
+- Express-GraphQL
+- GraphQL
+- Mongoose
