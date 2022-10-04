@@ -85,6 +85,30 @@ const mutation = new GraphQLObjectType({
         return Technician.findByIdAndRemove(args.id);
       },
     },
+    updateTechnician: {
+      type: TechnicianType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Technician.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              email: args.email,
+              phone: args.phone,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+      },
+    },
     addClient: {
       type: ClientType,
       args: {
@@ -109,6 +133,57 @@ const mutation = new GraphQLObjectType({
       args: { id: { type: GraphQLNonNull(GraphQLID) } },
       resolve(parent, args) {
         return Client.findByIdAndRemove(args.id);
+      },
+    },
+    updateClient: {
+      type: ClientType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+        address: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Client.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              email: args.email,
+              address: args.address,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+      },
+    },
+    deleleAppointment: {
+      type: AppointmentType,
+      args: { id: { type: GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args) {
+        return Appointment.findByIdAndRemove(args.id);
+      },
+    },
+    addAppointment: {
+      type: AppointmentType,
+      args: {
+        schedule_date: { type: GraphQLNonNull(GraphQLString) },
+        service_type: { type: GraphQLNonNull(GraphQLString) },
+        client_id: { type: GraphQLNonNull(GraphQLID) },
+        technician_id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        const appointment = new Appointment({
+          schedule_date: args.schedule_date,
+          service_type: args.service_type,
+          client_id: args.client_id,
+          technician_id: args.technician_id,
+        });
+
+        return appointment.save();
       },
     },
     deleleAppointment: {

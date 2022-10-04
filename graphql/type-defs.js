@@ -1,4 +1,13 @@
-const { GraphQLObjectType, GraphQLID, GraphQLString } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLList,
+} = require('graphql');
+const { default: mongoose } = require('mongoose');
+const Appointment = require('../models/Appointment');
+const Client = require('../models/Client');
+const Technician = require('../models/Technician');
 
 // Technician Type
 const TechnicianType = new GraphQLObjectType({
@@ -8,11 +17,11 @@ const TechnicianType = new GraphQLObjectType({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     phone: { type: GraphQLString },
-    appointment: {
-      type: AppointmentType,
-    },
-    client: {
-      type: AppointmentType,
+    appointments: {
+      type: new GraphQLList(AppointmentType),
+      resolve(parent, args) {
+        return Appointment.find({ technician_id: parent._id });
+      },
     },
   }),
 });
@@ -39,9 +48,15 @@ const AppointmentType = new GraphQLObjectType({
     service_type: { type: GraphQLString },
     client: {
       type: ClientType,
+      resolve(parent, args) {
+        return Client.findById(parent.client_id);
+      },
     },
     technician: {
       type: TechnicianType,
+      resolve(parent, args) {
+        return Technician.findById(parent.technician_id);
+      },
     },
   }),
 });
