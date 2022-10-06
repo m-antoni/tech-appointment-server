@@ -1,33 +1,17 @@
 const { GraphQLObjectType, GraphQLSchema } = require('graphql');
-const {
-  ADD_APPOINTMENT,
-  DELETE_APPOINTMENT,
-  UPDATE_APPOINTMENT,
-} = require('./mutations/Appointment');
-const {
-  ADD_CLIENT,
-  UPDATE_CLIENT,
-  DELETE_CLIENT,
-} = require('./mutations/Client');
-const {
-  ADD_TECHNICIAN,
-  DELETE_TECHNCIAN,
-  UPDATE_TECHNICIAN,
-} = require('./mutations/Technician');
-const { APPOINTMENTS, APPOINTMENT } = require('./queries/Appointment');
-const { CLIENTS, CLIENT } = require('./queries/Client');
-const { TECHNICIANS, TECHNICIAN } = require('./queries/Technician');
+const mutations = require('./mutations/_index');
+const queries = require('./queries/_index');
 
 // Root Query
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    clients: CLIENTS,
-    client: CLIENT,
-    technicians: TECHNICIANS,
-    technician: TECHNICIAN,
-    appointments: APPOINTMENTS,
-    appointment: APPOINTMENT,
+    clients: queries.CLIENTS,
+    client: queries.CLIENT,
+    technicians: queries.TECHNICIANS,
+    technician: queries.TECHNICIAN,
+    appointments: queries.APPOINTMENTS,
+    appointment: queries.APPOINTMENT,
   },
 });
 
@@ -35,15 +19,15 @@ const RootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    addTechnician: ADD_TECHNICIAN,
-    updateTechnician: UPDATE_TECHNICIAN,
-    deleteTechnician: DELETE_TECHNCIAN,
-    addClient: ADD_CLIENT,
-    updateClient: UPDATE_CLIENT,
-    deleteClient: DELETE_CLIENT,
-    addAppointment: ADD_APPOINTMENT,
-    updateAppointment: UPDATE_APPOINTMENT,
-    deleleAppointment: DELETE_APPOINTMENT,
+    addTechnician: mutations.ADD_TECHNICIAN,
+    updateTechnician: mutations.UPDATE_TECHNICIAN,
+    deleteTechnician: mutations.DELETE_TECHNCIAN,
+    addClient: mutations.ADD_CLIENT,
+    updateClient: mutations.UPDATE_CLIENT,
+    deleteClient: mutations.DELETE_CLIENT,
+    addAppointment: mutations.ADD_APPOINTMENT,
+    updateAppointment: mutations.UPDATE_APPOINTMENT,
+    deleleAppointment: mutations.DELETE_APPOINTMENT,
   },
 });
 

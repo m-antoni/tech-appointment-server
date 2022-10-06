@@ -1,17 +1,16 @@
 const { GraphQLList, GraphQLNonNull, GraphQLID } = require('graphql');
 const Technician = require('../../models/Technician');
-const { TechnicianType } = require('../type-defs');
-// const { TechnicianType } = require('../typedefs/TechnicianType');
+const { TECHNICIAN_TYPE } = require('../typedefs/_index');
 
 const TECHNICIANS = {
-  type: new GraphQLList(TechnicianType),
+  type: new GraphQLList(TECHNICIAN_TYPE),
   resolve(parent, args) {
     return Technician.find();
   },
 };
 
 const TECHNICIAN = {
-  type: TechnicianType,
+  type: TECHNICIAN_TYPE,
   args: { id: { type: GraphQLNonNull(GraphQLID) } },
   resolve(parent, args) {
     return Technician.findById(args.id);

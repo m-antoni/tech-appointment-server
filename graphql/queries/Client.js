@@ -6,18 +6,17 @@ const {
   GraphQLString,
 } = require('graphql');
 const Client = require('../../models/Client');
-const { ClientType } = require('../type-defs');
-// const { ClientType } = require('../typedefs/ClientType');
+const { CLIENT_TYPE } = require('../typedefs/_index');
 
 const CLIENTS = {
-  type: new GraphQLList(ClientType),
+  type: new GraphQLList(CLIENT_TYPE),
   resolve(parent, args) {
     return Client.find();
   },
 };
 
 const CLIENT = {
-  type: ClientType,
+  type: CLIENT_TYPE,
   args: { id: { type: GraphQLNonNull(GraphQLID) } },
   resolve(parent, args) {
     return Client.findById(args.id);

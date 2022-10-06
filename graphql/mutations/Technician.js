@@ -1,10 +1,9 @@
 const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
 const Technician = require('../../models/Technician');
-const { TechnicianType } = require('../type-defs');
-// // const { TechnicianType } = require('../typedefs/TechnicianType');
+const { TECHNICIAN_TYPE } = require('../typedefs/_index');
 
 const ADD_TECHNICIAN = {
-  type: TechnicianType,
+  type: TECHNICIAN_TYPE,
   args: {
     name: { type: GraphQLNonNull(GraphQLString) },
     email: { type: GraphQLNonNull(GraphQLString) },
@@ -22,7 +21,7 @@ const ADD_TECHNICIAN = {
 };
 
 const DELETE_TECHNCIAN = {
-  type: TechnicianType,
+  type: TECHNICIAN_TYPE,
   args: { id: { type: GraphQLNonNull(GraphQLID) } },
   resolve(parent, args) {
     return Technician.findByIdAndRemove(args.id);
@@ -30,7 +29,7 @@ const DELETE_TECHNCIAN = {
 };
 
 const UPDATE_TECHNICIAN = {
-  type: TechnicianType,
+  type: TECHNICIAN_TYPE,
   args: {
     id: { type: GraphQLNonNull(GraphQLString) },
     name: { type: GraphQLString },

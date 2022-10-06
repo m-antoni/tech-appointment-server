@@ -1,10 +1,9 @@
 const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
 const Client = require('../../models/Client');
-const { ClientType } = require('../type-defs');
-// const { ClientType } = require('../typedefs/ClientType');
+const { CLIENT_TYPE } = require('../typedefs/_index');
 
 const ADD_CLIENT = {
-  type: ClientType,
+  type: CLIENT_TYPE,
   args: {
     name: { type: GraphQLNonNull(GraphQLString) },
     email: { type: GraphQLNonNull(GraphQLString) },
@@ -24,7 +23,7 @@ const ADD_CLIENT = {
 };
 
 const DELETE_CLIENT = {
-  type: ClientType,
+  type: CLIENT_TYPE,
   args: { id: { type: GraphQLNonNull(GraphQLID) } },
   resolve(parent, args) {
     return Client.findByIdAndRemove(args.id);
@@ -32,7 +31,7 @@ const DELETE_CLIENT = {
 };
 
 const UPDATE_CLIENT = {
-  type: ClientType,
+  type: CLIENT_TYPE,
   args: {
     id: { type: GraphQLNonNull(GraphQLString) },
     name: { type: GraphQLString },
