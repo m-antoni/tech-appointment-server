@@ -4,7 +4,6 @@ const {
   GraphQLString,
   GraphQLList,
 } = require('graphql');
-const Appointment = require('../../models/Appointment');
 
 const TechnicianType = (types) =>
   new GraphQLObjectType({
@@ -16,8 +15,8 @@ const TechnicianType = (types) =>
       phone: { type: GraphQLString },
       appointments: {
         type: new GraphQLList(types.AppointmentType),
-        resolve(parent, args) {
-          return Appointment.find({ technician_id: parent._id });
+        resolve(parent, args, { db }) {
+          return db.Appointment.find({ technician_id: parent._id });
         },
       },
     }),

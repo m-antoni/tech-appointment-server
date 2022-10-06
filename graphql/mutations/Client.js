@@ -1,5 +1,4 @@
 const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
-const Client = require('../../models/Client');
 const { CLIENT_TYPE } = require('../typedefs/_index');
 
 const ADD_CLIENT = {
@@ -10,8 +9,8 @@ const ADD_CLIENT = {
     phone: { type: GraphQLNonNull(GraphQLString) },
     address: { type: GraphQLNonNull(GraphQLString) },
   },
-  resolve(parent, args) {
-    const client = new Client({
+  resolve(parent, args, { db }) {
+    const client = new db.Client({
       name: args.name,
       email: args.email,
       phone: args.phone,
@@ -25,8 +24,8 @@ const ADD_CLIENT = {
 const DELETE_CLIENT = {
   type: CLIENT_TYPE,
   args: { id: { type: GraphQLNonNull(GraphQLID) } },
-  resolve(parent, args) {
-    return Client.findByIdAndRemove(args.id);
+  resolve(parent, args, { db }) {
+    return db.Client.findByIdAndRemove(args.id);
   },
 };
 
@@ -39,8 +38,8 @@ const UPDATE_CLIENT = {
     phone: { type: GraphQLString },
     address: { type: GraphQLString },
   },
-  resolve(parent, args) {
-    return Client.findByIdAndUpdate(
+  resolve(parent, args, { db }) {
+    return db.Client.findByIdAndUpdate(
       args.id,
       {
         $set: {

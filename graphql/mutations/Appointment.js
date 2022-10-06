@@ -1,5 +1,4 @@
 const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
-const Appointment = require('../../models/Appointment');
 const { APPOINTMENT_TYPE } = require('../typedefs/_index');
 
 const ADD_APPOINTMENT = {
@@ -10,8 +9,8 @@ const ADD_APPOINTMENT = {
     client_id: { type: GraphQLNonNull(GraphQLID) },
     technician_id: { type: GraphQLNonNull(GraphQLID) },
   },
-  resolve(parent, args) {
-    const appointment = new Appointment({
+  resolve(parent, args, { db }) {
+    const appointment = new db.Appointment({
       schedule_date: args.schedule_date,
       service_type: args.service_type,
       client_id: args.client_id,
@@ -25,8 +24,8 @@ const ADD_APPOINTMENT = {
 const DELETE_APPOINTMENT = {
   type: APPOINTMENT_TYPE,
   args: { id: { type: GraphQLNonNull(GraphQLID) } },
-  resolve(parent, args) {
-    return Appointment.findByIdAndRemove(args.id);
+  resolve(parent, args, { db }) {
+    return db.Appointment.findByIdAndRemove(args.id);
   },
 };
 
@@ -39,8 +38,8 @@ const UPDATE_APPOINTMENT = {
     client_id: { type: GraphQLID },
     technician_id: { type: GraphQLID },
   },
-  resolve(parent, args) {
-    return Appointment.findByIdAndUpdate(
+  resolve(parent, args, { db }) {
+    return db.Appointment.findByIdAndUpdate(
       args.id,
       {
         $set: {

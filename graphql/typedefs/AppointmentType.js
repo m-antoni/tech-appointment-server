@@ -1,6 +1,4 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString } = require('graphql');
-const Client = require('../../models/Client');
-const Technician = require('../../models/Technician');
 
 const AppointmentType = (types) =>
   new GraphQLObjectType({
@@ -12,14 +10,14 @@ const AppointmentType = (types) =>
       service_type: { type: GraphQLString },
       client: {
         type: types.ClientType,
-        resolve(parent, args) {
-          return Client.findById(parent.client_id);
+        resolve(parent, args, { db }) {
+          return db.Client.findById(parent.client_id);
         },
       },
       technician: {
         type: types.TechnicianType,
-        resolve(parent, args) {
-          return Technician.findById(parent.technician_id);
+        resolve(parent, args, { db }) {
+          return db.Technician.findById(parent.technician_id);
         },
       },
     }),
