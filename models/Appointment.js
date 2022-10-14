@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 
 const AppointmentSchema = new mongoose.Schema({
-  receipt_no: {
-    type: String,
-  },
-  schedule_date: {
-    type: String,
-  },
   title: {
     type: String,
   },
   description: {
+    type: String,
+  },
+  schedule_date: {
     type: String,
   },
   client_id: {
