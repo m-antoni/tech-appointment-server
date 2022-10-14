@@ -7,7 +7,10 @@ const AppointmentSchema = new mongoose.Schema({
   schedule_date: {
     type: String,
   },
-  service_type: {
+  title: {
+    type: String,
+  },
+  description: {
     type: String,
   },
   client_id: {

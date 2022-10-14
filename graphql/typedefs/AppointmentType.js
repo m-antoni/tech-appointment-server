@@ -5,9 +5,9 @@ const AppointmentType = (types) =>
     name: 'AppointmentType',
     fields: () => ({
       id: { type: GraphQLID },
-      receipt_no: { type: GraphQLString },
       schedule_date: { type: GraphQLString },
-      service_type: { type: GraphQLString },
+      title: { type: GraphQLString },
+      description: { type: GraphQLString },
       client: {
         type: types.ClientType,
         resolve(parent, args, { db }) {

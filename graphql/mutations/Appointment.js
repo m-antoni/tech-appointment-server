@@ -5,14 +5,16 @@ const ADD_APPOINTMENT = {
   type: APPOINTMENT_TYPE,
   args: {
     schedule_date: { type: GraphQLNonNull(GraphQLString) },
-    service_type: { type: GraphQLNonNull(GraphQLString) },
+    title: { type: GraphQLNonNull(GraphQLString) },
+    description: { type: GraphQLNonNull(GraphQLString) },
     client_id: { type: GraphQLNonNull(GraphQLID) },
     technician_id: { type: GraphQLNonNull(GraphQLID) },
   },
   resolve(parent, args, { db }) {
     const appointment = new db.Appointment({
       schedule_date: args.schedule_date,
-      service_type: args.service_type,
+      title: args.title,
+      description: args.description,
       client_id: args.client_id,
       technician_id: args.technician_id,
     });
@@ -34,7 +36,8 @@ const UPDATE_APPOINTMENT = {
   args: {
     id: { type: GraphQLNonNull(GraphQLID) },
     schedule_date: { type: GraphQLString },
-    service_type: { type: GraphQLString },
+    title: { type: GraphQLNonNull(GraphQLString) },
+    description: { type: GraphQLNonNull(GraphQLString) },
     client_id: { type: GraphQLID },
     technician_id: { type: GraphQLID },
   },
@@ -44,7 +47,8 @@ const UPDATE_APPOINTMENT = {
       {
         $set: {
           schedule_date: args.schedule_data,
-          service_type: args.service_type,
+          title: args.title,
+          description: args.description,
           client_id: args.client_id,
           technician_id: args.technician_id,
         },
