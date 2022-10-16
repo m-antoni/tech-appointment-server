@@ -27,7 +27,7 @@ const mutation = new GraphQLObjectType({
     deleteClient: mutations.DELETE_CLIENT,
     addAppointment: mutations.ADD_APPOINTMENT,
     updateAppointment: mutations.UPDATE_APPOINTMENT,
-    deleleAppointment: mutations.DELETE_APPOINTMENT,
+    deleteAppointment: mutations.DELETE_APPOINTMENT,
   },
 });
 
